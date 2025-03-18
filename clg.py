@@ -2,24 +2,22 @@ import streamlit as st
 import pandas as pd
 import requests
 
-# --- Helper functions for Excel-based login ---
+# --- Helper functions for Variable-based login ---
+# Hardcoded user credentials (replace with real data)
+valid_users = {
+    '22G21A0593': '22G21A0593',  # Reg Number as both username and password
+    '22G21A05C5': '22G21A05C5',
+    '22G21A05A0': '22G21A05A0',
+    
+
+    # Add more users as needed
+}
+
 def validate_login(username, password):
     try:
-        # Load Excel file (Make sure the path is correct)
-        df = pd.read_excel('III Sem Section Wise Students.xlsx')  # Ensure the path to your file is correct
-        
-        # Check if 'Reg Number' column exists (case-sensitive)
-        if 'Reg Number' not in df.columns:
-            st.error("Missing 'Reg Number' column in the Excel sheet.")
-            return False
-        
-        # Find user by Reg Number and validate if the username and password match
-        user = df[df['Reg Number'] == username]
-        
-        # Validate if user exists and matches the password (Reg Number)
-        if not user.empty:
-            # Here we assume the 'Reg Number' is used as both username and password
-            if user['Reg Number'].iloc[0] == password:
+        # Check if the username exists and the password matches
+        if username in valid_users:
+            if valid_users[username] == password:
                 return True
             else:
                 st.error("Invalid Password!")
