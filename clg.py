@@ -5,10 +5,10 @@ import requests
 # --- Helper functions for Excel-based login ---
 def validate_login(username, password):
     try:
-        # Load Excel file
+        # Load Excel file (Make sure the path is correct)
         df = pd.read_excel('III Sem Section Wise Students.xlsx')  # Ensure the path to your file is correct
         
-        # Check if 'Reg Number' column exists
+        # Check if 'Reg Number' column exists (case-sensitive)
         if 'Reg Number' not in df.columns:
             st.error("Missing 'Reg Number' column in the Excel sheet.")
             return False
@@ -17,10 +17,15 @@ def validate_login(username, password):
         user = df[df['Reg Number'] == username]
         
         # Validate if user exists and matches the password (Reg Number)
-        if not user.empty and user['Reg Number'].iloc[0] == password:
-            return True
+        if not user.empty:
+            # Here we assume the 'Reg Number' is used as both username and password
+            if user['Reg Number'].iloc[0] == password:
+                return True
+            else:
+                st.error("Invalid Password!")
+                return False
         else:
-            st.error('Invalid Username or Password')
+            st.error("User not found!")
             return False
     except Exception as e:
         st.error(f"An error occurred while validating login: {e}")
@@ -92,7 +97,7 @@ def main_page():
 
     # --- Services Section ---
     st.subheader("Our Services")
-    st.write("""
+    st.write(""" 
         - To-Do List (Download)
         - Important Questions Generator (Download)
         - PDF Summary (Download)
@@ -105,7 +110,7 @@ def main_page():
         - Quiz and Games
     """)
 
-    st.markdown(""" 
+    st.markdown("""
         <div class="container mx-auto p-8">
             <ul class="space-y-4 mt-4">
                 <li><a href="#todo" class="text-blue-500">To-Do List (Download)</a></li>
@@ -210,5 +215,4 @@ def login_page():
 
 # --- Main Program Flow --- 
 if __name__ == "__main__":
-    # Check if the user is logged in (for this example, we'll just show the login page)
-    login_page()
+    login_page()  # Show login page
