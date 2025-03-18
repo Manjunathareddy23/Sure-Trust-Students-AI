@@ -6,9 +6,9 @@ from io import StringIO
 # --- Helper functions for Excel-based login ---
 def validate_login(username, password):
     # Load Excel file with usernames and passwords
-    df = pd.read_excel('users.xlsx')  # Assume 'users.xlsx' contains 'username' and 'password' columns
-    user = df[df['username'] == username]
-    if not user.empty and user['password'].iloc[0] == password:
+    df = pd.read_excel('III Sem Section Wise Students.xlsx')  # Assume 'users.xlsx' contains 'username' and 'password' columns
+    user = df[df['Reg Number'] == username]
+    if not user.empty and user['Reg Number'].iloc[0] == password:
         return True
     return False
 
