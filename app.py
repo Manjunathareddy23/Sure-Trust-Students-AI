@@ -1,11 +1,10 @@
-# app.py
 import streamlit as st
 import requests
 
-# Check if the user is logged in
+# --- Check if the user is logged in ---
 if 'logged_in' not in st.session_state or not st.session_state.logged_in:
     st.warning('You must log in first!')
-    st.stop()  # Stop execution if not logged in
+    st.experimental_rerun()  # Redirect to the login page if not logged in
 
 # --- Helper function for To-Do List ---
 def todo_list():
