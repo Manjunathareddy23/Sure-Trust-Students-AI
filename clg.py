@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
-import openai
+import requests
 from io import StringIO
 
-# --- Helper functions for CSV-based login ---
+# --- Helper functions for Excel-based login ---
 def validate_login(username, password):
-    # Load CSV file with usernames and passwords
-    df = pd.read_csv('users.csv')  # Assume 'users.csv' contains 'username' and 'password' columns
+    # Load Excel file with usernames and passwords
+    df = pd.read_excel('users.xlsx')  # Assume 'users.xlsx' contains 'username' and 'password' columns
     user = df[df['username'] == username]
     if not user.empty and user['password'].iloc[0] == password:
         return True
@@ -19,21 +19,39 @@ def todo_list():
     st.text_area("Your To-Do List", value=tasks_str, height=200)
     st.download_button("Download To-Do List", data=tasks_str, file_name="todo_list.txt", mime="text/plain")
 
-# --- Helper function for AI Doubt Solver ---
-def get_answer_from_ai(question):
-    openai.api_key = 'your_openai_api_key'  # Replace with your actual API key
-    response = openai.Completion.create(
-      model="text-davinci-003",
-      prompt=question,
-      max_tokens=100
-    )
-    return response.choices[0].text.strip()
+# --- Helper function for AI Doubt Solver (Gemini AI) ---
+def get_answer_from_gemini(question):
+    gemini_api_url = 'https://gemini-api.example.com/v1/completion'  # Placeholder URL, update with actual Gemini endpoint
+    gemini_api_key = 'your_gemini_api_key'  # Replace with your actual Gemini API key
+
+    headers = {
+        'Authorization': f'Bearer {gemini_api_key}',
+        'Content-Type': 'application/json'
+    }
+
+    # Request payload (adjust based on Gemini AI API docs)
+    data = {
+        'model': 'gemini-model',  # Placeholder model name, replace with the correct Gemini model name
+        'prompt': question,
+        'max_tokens': 100
+    }
+
+    # Send POST request to Gemini API
+    response = requests.post(gemini_api_url, json=data, headers=headers)
+
+    if response.status_code == 200:
+        answer = response.json()['choices'][0]['text']  # Adjust based on Gemini API response structure
+        return answer
+    else:
+        st.error("Error: Could not get a response from Gemini AI.")
+        return None
 
 def ai_bot():
     question = st.text_input("Ask a question:")
     if st.button("Get Answer"):
-        answer = get_answer_from_ai(question)
-        st.write(answer)
+        answer = get_answer_from_gemini(question)
+        if answer:
+            st.write(answer)
 
 # --- Streamlit Page Layout and Styling ---
 def main_page():
@@ -106,7 +124,7 @@ def main_page():
         </div>
     """, unsafe_allow_html=True)
 
-
+    # Call the To-Do list function
     todo_list()
 
     # Call the AI bot function
