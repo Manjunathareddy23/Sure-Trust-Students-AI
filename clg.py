@@ -75,7 +75,7 @@ def ai_bot():
 # --- Main Page --- 
 def main_page():
     # Home page navigation bar with Tailwind CSS
-    st.markdown("""
+    st.markdown(""" 
         <header class="bg-blue-500 p-4">
             <nav class="flex justify-between">
                 <div class="text-white text-lg">College Web App</div>
@@ -195,12 +195,8 @@ def login_page():
     st.markdown('<div class="login-title">Login</div>', unsafe_allow_html=True)
 
     # Fixed repeated key argument
-    username = st.text_input('Username (Reg Number)', label_visibility="collapsed", placeholder="Enter your Reg Number", 
-                             help="Please enter your Registration Number.", max_chars=10, 
-                             class_="input-field")
-    password = st.text_input('Password (Reg Number)', type='password', placeholder="Enter your Reg Number", 
-                             help="Please enter your Reg Number as password.", max_chars=10, 
-                             label_visibility="collapsed", class_="input-field")
+    username = st.text_input('Username (Reg Number)', placeholder="Enter your Reg Number", help="Please enter your Registration Number.", max_chars=10, class_="input-field")
+    password = st.text_input('Password (Reg Number)', type='password', placeholder="Enter your Reg Number", help="Please enter your Reg Number as password.", max_chars=10, class_="input-field")
 
     if st.button('Login'):
         if validate_login(username, password):
@@ -212,7 +208,7 @@ def login_page():
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- Main Program Flow ---
+# --- Main Program Flow --- 
 if __name__ == "__main__":
     # Check if the user is logged in (for this example, we'll just show the login page)
     login_page()
