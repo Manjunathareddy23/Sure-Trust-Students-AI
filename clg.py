@@ -105,7 +105,7 @@ def main_page():
         - Quiz and Games
     """)
 
-    st.markdown("""
+    st.markdown(""" 
         <div class="container mx-auto p-8">
             <ul class="space-y-4 mt-4">
                 <li><a href="#todo" class="text-blue-500">To-Do List (Download)</a></li>
@@ -128,7 +128,7 @@ def main_page():
 
 # --- Login Page --- 
 def login_page():
-    st.markdown("""
+    st.markdown(""" 
         <style>
             /* Tailwind CSS and Custom Styling */
             .stButton>button {
@@ -195,8 +195,8 @@ def login_page():
     st.markdown('<div class="login-title">Login</div>', unsafe_allow_html=True)
 
     # Fixed repeated key argument
-    username = st.text_input('Username (Reg Number)', placeholder="Enter your Reg Number", help="Please enter your Registration Number.", max_chars=10, class_="input-field")
-    password = st.text_input('Password (Reg Number)', type='password', placeholder="Enter your Reg Number", help="Please enter your Reg Number as password.", max_chars=10, class_="input-field")
+    username = st.text_input('Username (Reg Number)', placeholder="Enter your Reg Number", help="Please enter your Registration Number.", max_chars=10)
+    password = st.text_input('Password (Reg Number)', type='password', placeholder="Enter your Reg Number", help="Please enter your Reg Number as password.", max_chars=10)
 
     if st.button('Login'):
         if validate_login(username, password):
