@@ -106,7 +106,7 @@ def main_page():
         </div>
     """, unsafe_allow_html=True)
 
-    # Call the To-Do list function
+
     todo_list()
 
     # Call the AI bot function
