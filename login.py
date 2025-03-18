@@ -1,4 +1,3 @@
-# login.py
 import streamlit as st
 import app  # Import the main app for redirection
 
