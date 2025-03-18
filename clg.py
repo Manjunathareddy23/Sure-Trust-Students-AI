@@ -21,7 +21,7 @@ def todo_list():
 
 # --- Helper function for AI Doubt Solver (Gemini AI) ---
 def get_answer_from_gemini(question):
-    gemini_api_url = 'https://gemini-api.example.com/v1/completion'  # Placeholder URL, update with actual Gemini endpoint
+    gemini_api_url = 'https://gemini-api.example.com/v1/completion'  # Replace with the actual Gemini endpoint
     gemini_api_key = 'your_gemini_api_key'  # Replace with your actual Gemini API key
 
     headers = {
@@ -31,7 +31,7 @@ def get_answer_from_gemini(question):
 
     # Request payload (adjust based on Gemini AI API docs)
     data = {
-        'model': 'gemini-model',  # Placeholder model name, replace with the correct Gemini model name
+        'model': 'gemini-model',  # Replace with the correct Gemini model name
         'prompt': question,
         'max_tokens': 100
     }
@@ -40,7 +40,8 @@ def get_answer_from_gemini(question):
     response = requests.post(gemini_api_url, json=data, headers=headers)
 
     if response.status_code == 200:
-        answer = response.json()['choices'][0]['text']  # Adjust based on Gemini API response structure
+        # Handle response depending on Gemini's actual response structure
+        answer = response.json().get('choices')[0].get('text')  # Ensure this matches Gemini's API response format
         return answer
     else:
         st.error("Error: Could not get a response from Gemini AI.")
