@@ -194,10 +194,11 @@ def login_page():
 
     st.markdown('<div class="login-title">Login</div>', unsafe_allow_html=True)
 
-    username = st.text_input('Username (Reg Number)', key='username', label_visibility="collapsed", placeholder="Enter your Reg Number", 
-                             help="Please enter your Registration Number.", max_chars=10, key="username", 
-                             label_visibility="collapsed", class_="input-field")
-    password = st.text_input('Password (Reg Number)', type='password', key='password', placeholder="Enter your Reg Number", 
+    # Fixed repeated key argument
+    username = st.text_input('Username (Reg Number)', label_visibility="collapsed", placeholder="Enter your Reg Number", 
+                             help="Please enter your Registration Number.", max_chars=10, 
+                             class_="input-field")
+    password = st.text_input('Password (Reg Number)', type='password', placeholder="Enter your Reg Number", 
                              help="Please enter your Reg Number as password.", max_chars=10, 
                              label_visibility="collapsed", class_="input-field")
 
