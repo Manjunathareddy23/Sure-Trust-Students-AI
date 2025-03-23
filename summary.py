@@ -16,7 +16,7 @@ st.set_page_config(page_title='Manju PDF Summarizer', page_icon='📄', layout='
 # GitHub link to your background image
 background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/summary.jpg"
 
-# Updated CSS styling with better background implementation
+# Updated CSS styling with vibrant colors
 st.markdown(f"""
     <style>
         .stApp {{
@@ -25,20 +25,28 @@ st.markdown(f"""
             background-position: center;
             background-repeat: no-repeat;
             color: #000;
+            font-family: Arial, sans-serif;
         }}
         .container {{
-            background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent container */
+            background-color: rgba(255, 255, 255, 0.85);  /* Semi-transparent container */
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
             width: 60%;
             margin: 50px auto;
             text-align: center;
+            animation: fadeIn 1.5s;
+        }}
+        @keyframes fadeIn {{
+            from {{ opacity: 0; }}
+            to {{ opacity: 1; }}
         }}
         h1 {{
-            color: #1e40af;
-            font-size: 2.5rem;
+            color: #ffd700;  /* Golden color for the title */
+            font-size: 2.8rem;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
         }}
         .result-box {{
             background-color: #f1f5f9;
@@ -49,11 +57,18 @@ st.markdown(f"""
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             max-height: 300px;
+            color: #0f172a;  /* Dark text for better readability */
+            font-weight: 500;
         }}
         .error-msg {{
             color: red;
             font-weight: bold;
             margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }}
+        .highlight {{
+            color: #ff5722;  /* Vibrant orange for highlights */
+            font-weight: bold;
         }}
     </style>
 """, unsafe_allow_html=True)
@@ -110,7 +125,7 @@ if uploaded_file is not None:
         os.remove('uploaded_file.pdf')  # Clean up the file after extraction
 
     if pdf_text:
-        st.markdown(f"<div class='result-box'><strong>Extracted Text Preview:</strong><br>{pdf_text[:500]}...</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='result-box'><strong class='highlight'>Extracted Text Preview:</strong><br>{pdf_text[:500]}...</div>", unsafe_allow_html=True)
 
         if st.button("Get Summary and Key Points"):
             with st.spinner("Fetching summary from Gemini API..."):
@@ -118,7 +133,7 @@ if uploaded_file is not None:
                 result = get_gemini_response("Summarize this PDF:", pdf_text, prompt)
 
             if result:
-                st.markdown(f"<div class='result-box'><strong>Summary and Key Points:</strong><br>{result}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='result-box'><strong class='highlight'>Summary and Key Points:</strong><br>{result}</div>", unsafe_allow_html=True)
 
                 # Trigger the PDF download
                 download_pdf(result)
