@@ -6,7 +6,7 @@ st.markdown('''
     <style>
     /* Full-page background image */
     [data-testid="stAppViewContainer"] {
-        background-image: url('https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/translation_bg.png');
+        background-image: url('https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/lang.jpg');
         background-size: cover;
         background-position: center;
     }
