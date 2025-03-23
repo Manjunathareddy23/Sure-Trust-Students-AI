@@ -11,3 +11,4 @@ easyocr
 numpy
 opencv-python-headless
 streamlit-webrtc
+pymupdf 
