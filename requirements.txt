@@ -5,3 +5,9 @@ openpyxl
 google-generativeai
 python-dotenv
 fpdf
+googletrans==4.0.0-rc1
+Pillow
+easyocr
+numpy
+opencv-python-headless
+streamlit-webrtc
