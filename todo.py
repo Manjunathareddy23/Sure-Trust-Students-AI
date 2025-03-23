@@ -24,7 +24,7 @@ def app():
     st.markdown("""
     <style>
         .stApp {
-            background-image: url('https://example.com/your-image.jpg');
+            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fupsu.net%2Fpost%2FVG96P%2Fhow-to-make-a-to-do-list-and-stick-to-it&psig=AOvVaw3WhFIpI4QzW4UeB5TWSwT7&ust=1742789611554000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPCIxMyrn4wDFQAAAAAdAAAAABAE');
             background-size: cover;
             background-position: center;
             height: 100vh;
