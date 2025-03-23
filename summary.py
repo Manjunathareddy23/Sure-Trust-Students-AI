@@ -16,7 +16,7 @@ st.set_page_config(page_title='Manju PDF Summarizer', page_icon='📄', layout='
 # GitHub link to your background image
 background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/summary.jpg"
 
-# Updated CSS styling with vibrant colors
+# Updated CSS styling with enhanced text stylings
 st.markdown(f"""
     <style>
         .stApp {{
@@ -28,7 +28,7 @@ st.markdown(f"""
             font-family: Arial, sans-serif;
         }}
         .container {{
-            background-color: rgba(255, 255, 255, 0.85);  /* Semi-transparent container */
+            background-color: rgba(255, 255, 255, 0.85);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
@@ -43,10 +43,19 @@ st.markdown(f"""
         }}
         h1 {{
             color: #ffd700;  /* Golden color for the title */
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-decoration: underline;
+        }}
+        label {{
+            color: #1e40af;  /* Stylish blue for labels */
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: 'Verdana', sans-serif;
         }}
         .result-box {{
             background-color: #f1f5f9;
@@ -57,8 +66,9 @@ st.markdown(f"""
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             max-height: 300px;
-            color: #0f172a;  /* Dark text for better readability */
+            color: #0f172a;
             font-weight: 500;
+            font-family: 'Calibri', sans-serif;
         }}
         .error-msg {{
             color: red;
@@ -67,15 +77,31 @@ st.markdown(f"""
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }}
         .highlight {{
-            color: #ff5722;  /* Vibrant orange for highlights */
+            color: #ff5722;
             font-weight: bold;
+            font-style: italic;
+        }}
+        .stButton>button {{
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }}
+        .stButton>button:hover {{
+            background-color: #45a049;
         }}
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown("<div class='container'><h1>📄 Manju PDF Summarizer</h1>", unsafe_allow_html=True)
 
-uploaded_file = st.file_uploader("Upload a PDF file:", type=['pdf'])
+uploaded_file = st.file_uploader("🔹 Upload a PDF file:", type=['pdf'])
 
 def extract_text_from_pdf(pdf_path):
     """Extracts text from a PDF file using PyMuPDF."""
@@ -118,24 +144,22 @@ def download_pdf(content):
         )
 
 if uploaded_file is not None:
-    with st.spinner("Extracting text from the PDF..."):
+    with st.spinner("🔄 Extracting text from the PDF..."):
         with open('uploaded_file.pdf', 'wb') as f:
             f.write(uploaded_file.read())
         pdf_text = extract_text_from_pdf('uploaded_file.pdf')
         os.remove('uploaded_file.pdf')  # Clean up the file after extraction
 
     if pdf_text:
-        st.markdown(f"<div class='result-box'><strong class='highlight'>Extracted Text Preview:</strong><br>{pdf_text[:500]}...</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='result-box'><strong class='highlight'>📑 Extracted Text Preview:</strong><br>{pdf_text[:500]}...</div>", unsafe_allow_html=True)
 
-        if st.button("Get Summary and Key Points"):
-            with st.spinner("Fetching summary from Gemini API..."):
+        if st.button("🔎 Get Summary and Key Points"):
+            with st.spinner("🔄 Fetching summary from Gemini API..."):
                 prompt = "Provide a summary and key points for the given content."
                 result = get_gemini_response("Summarize this PDF:", pdf_text, prompt)
 
             if result:
-                st.markdown(f"<div class='result-box'><strong class='highlight'>Summary and Key Points:</strong><br>{result}</div>", unsafe_allow_html=True)
-
-                # Trigger the PDF download
+                st.markdown(f"<div class='result-box'><strong class='highlight'>✅ Summary and Key Points:</strong><br>{result}</div>", unsafe_allow_html=True)
                 download_pdf(result)
 
 st.markdown("</div>", unsafe_allow_html=True)
