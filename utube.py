@@ -10,8 +10,8 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Prompt for Google Gemini
-prompt = """You are a YouTube video summarizer. You will take the transcript of the video
-and summarize the entire video, providing the important information in points within
+prompt = """You are a YouTube video summarizer. You will take the transcript of the video 
+and summarize the entire video, providing the important information in points within 
 250 words. The summary will be in a professional format. Please provide the summary of the text given here: """
 
 st.title("📹 YouTube Video Summarizer")
@@ -43,9 +43,12 @@ def extract_transcript_details(youtube_video_url):
 def generate_gemini_content(transcript_text, prompt):
     """Generates a summary using the Google Gemini API."""
     try:
-        model = genai.GenerativeModel(model_id='gemini-1.5-turbo')  # Replace with your selected model
-        response = model.generate_content(prompt + transcript_text)
-        return response.text
+        response = genai.generate_text(
+            model="text-bison-001",  # Update this with the correct model suitable for summarization
+            prompt=prompt + transcript_text,
+            max_output_tokens=300
+        )
+        return response.result
     except Exception as e:
         st.error(f"❌ Failed to fetch data from Gemini API: {e}")
         return None
