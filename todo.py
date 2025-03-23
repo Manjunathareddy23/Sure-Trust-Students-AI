@@ -25,60 +25,111 @@ def app():
     st.markdown("""
     <style>
         .stApp {
-            background-image: url('https://example.com/your-image.jpg');
+            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fupsu.net%2Fpost%2FVG96P%2Fhow-to-make-a-to-do-list-and-stick-to-it&psig=AOvVaw3WhFIpI4QzW4UeB5TWSwT7&ust=1742789611554000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPCIxMyrn4wDFQAAAAAdAAAAABAE');  /* Replace with your actual background image URL */
             background-size: cover;
             background-position: center;
             height: 100vh;
-            color: white;
+            color: #f5f5f5;  /* Light text for readability */
+            font-family: 'Arial', sans-serif;
         }
+
         .todo-container {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);  /* Dark background for container */
+            padding: 30px;
+            border-radius: 15px;
             width: 80%;
             margin: 0 auto;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
         }
+
+        h1, h2, h3 {
+            color: #FF6347;  /* Bright red for headings */
+        }
+
         .todo-list {
-            margin-top: 10px;
+            margin-top: 20px;
             list-style-type: none;
             padding: 0;
         }
+
         .todo-list li {
-            margin: 10px 0;
+            margin: 15px 0;
             background-color: rgba(255, 255, 255, 0.7);
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #333;
+            transition: background-color 0.3s ease;
         }
+
+        .todo-list li:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
         .completed {
             text-decoration: line-through;
-            color: grey;
+            color: #808080;
         }
+
         .download-btn {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 10px;
             text-decoration: none;
             display: inline-block;
             margin-top: 20px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
+
         .download-btn:hover {
             background-color: #45a049;
         }
+
+        .todo-input {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            width: 80%;
+            margin: 10px 0;
+        }
+
+        .todo-input:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 99, 71, 0.7);
+        }
+
+        .header-text {
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            color: #FF6347;
+        }
+
+        .subheader-text {
+            font-size: 18px;
+            color: #f5f5f5;
+            margin-top: -10px;
+            font-weight: 300;
+        }
+
     </style>
     """, unsafe_allow_html=True)
 
     # Title and description
     st.title("To-Do List Generator")
-    st.write("Create your to-do list, mark tasks as completed, and download it as a PDF")
+    st.markdown('<p class="header-text">Create your to-do list, mark tasks as completed, and download it as a PDF</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subheader-text">Stay organized and track your tasks easily!</p>', unsafe_allow_html=True)
 
     # Input for tasks
     with st.form("todo_form", clear_on_submit=True):
-        todo_item = st.text_input("Add a task")
+        todo_item = st.text_input("Add a task", key="task_input", placeholder="Enter a new task", label_visibility="collapsed")
         add_task_button = st.form_submit_button("Add Task")
 
     if add_task_button and todo_item:
