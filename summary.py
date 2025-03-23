@@ -11,7 +11,7 @@ load_dotenv()
 # Configure the Google Gemini API key
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-st.set_page_config(page_title='Gemini PDF Summarizer', page_icon='📄', layout='centered')
+st.set_page_config(page_title='Manju PDF Summarizer', page_icon='📄', layout='centered')
 
 # Replace this URL with the direct link to your GitHub background image
 background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/summary.jpg"
