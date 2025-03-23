@@ -165,7 +165,8 @@ def app():
 
         st.markdown('</ul>', unsafe_allow_html=True)
 
-        # Button to download the list as a PDF
+        # Button to download the list as a P
+        
         if st.session_state.todo_list:
             pdf_data = generate_pdf(st.session_state.todo_list)
             st.download_button("Download PDF", pdf_data, file_name="todo_list.pdf", mime="application/pdf", use_container_width=True)
