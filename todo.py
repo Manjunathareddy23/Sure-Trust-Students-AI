@@ -11,8 +11,9 @@ def generate_pdf(todo_list):
     pdf.cell(200, 10, txt="To-Do List", ln=True, align="C")
     pdf.ln(10)
 
-    for item in todo_list:
-        pdf.cell(200, 10, txt=f"- {item}", ln=True)
+    for task in todo_list:
+        status = "Completed" if task['completed'] else "Pending"
+        pdf.cell(200, 10, txt=f"- {task['task']} ({status})", ln=True)
 
     return pdf.output(dest='S').encode('latin1')
 
@@ -24,7 +25,7 @@ def app():
     st.markdown("""
     <style>
         .stApp {
-            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fupsu.net%2Fpost%2FVG96P%2Fhow-to-make-a-to-do-list-and-stick-to-it&psig=AOvVaw3WhFIpI4QzW4UeB5TWSwT7&ust=1742789611554000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPCIxMyrn4wDFQAAAAAdAAAAABAE');
+            background-image: url('https://example.com/your-image.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -50,6 +51,10 @@ def app():
             padding: 10px;
             border-radius: 5px;
         }
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+        }
         .download-btn {
             background-color: #4CAF50;
             color: white;
@@ -69,7 +74,7 @@ def app():
 
     # Title and description
     st.title("To-Do List Generator")
-    st.write("Create your to-do list and download it as a PDF")
+    st.write("Create your to-do list, mark tasks as completed, and download it as a PDF")
 
     # Input for tasks
     with st.form("todo_form", clear_on_submit=True):
@@ -80,15 +85,26 @@ def app():
         if "todo_list" not in st.session_state:
             st.session_state.todo_list = []
         
-        st.session_state.todo_list.append(todo_item)
+        # Add task with completion status set to False
+        st.session_state.todo_list.append({"task": todo_item, "completed": False})
     
-    # Display the to-do list
+    # Display the to-do list with checkboxes for completion
     if "todo_list" in st.session_state:
         st.markdown('<div class="todo-container">', unsafe_allow_html=True)
         st.write("### Your To-Do List")
         st.markdown('<ul class="todo-list">', unsafe_allow_html=True)
-        for item in st.session_state.todo_list:
-            st.markdown(f'<li>{item}</li>', unsafe_allow_html=True)
+        
+        for idx, task in enumerate(st.session_state.todo_list):
+            # Mark completed tasks
+            checkbox_label = task["task"]
+            if task["completed"]:
+                checkbox_label = f'<span class="completed">{task["task"]}</span>'
+            task_completed = st.checkbox(checkbox_label, value=task["completed"], key=f"task_{idx}")
+
+            # Update task completion status
+            if task_completed != task["completed"]:
+                st.session_state.todo_list[idx]["completed"] = task_completed
+
         st.markdown('</ul>', unsafe_allow_html=True)
 
         # Button to download the list as a PDF
