@@ -1,10 +1,8 @@
 import streamlit as st
 from fpdf import FPDF
-import requests
 import fitz  # PyMuPDF for PDF reading
 import os
 from dotenv import load_dotenv
-import time
 import google.generativeai as genai  # Import the Google Gemini library
 
 # Load environment variables from .env file
@@ -81,6 +79,24 @@ def get_gemini_response(input_text, pdf_content, prompt):
         st.error("❌ Failed to fetch data from Gemini API. Please check your API key or connection.")
         return None
 
+def download_pdf(content):
+    """Generates and allows download of the summary PDF."""
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.multi_cell(0, 10, "Summary and Key Points:\n")
+    pdf.multi_cell(0, 10, content)
+    pdf_file = "summary_output.pdf"
+    pdf.output(pdf_file)
+
+    with open(pdf_file, "rb") as file:
+        st.download_button(
+            label="📥 Download Summary PDF",
+            data=file,
+            file_name=pdf_file,
+            mime="application/pdf"
+        )
+
 if uploaded_file is not None:
     with st.spinner("Extracting text from the PDF..."):
         with open('uploaded_file.pdf', 'wb') as f:
@@ -99,19 +115,7 @@ if uploaded_file is not None:
             if result:
                 st.markdown(f"<div class='result-box'><strong>Summary and Key Points:</strong><br>{result}</div>", unsafe_allow_html=True)
 
-                if st.button("Download as PDF"):
-                    pdf = FPDF()
-                    pdf.add_page()
-                    pdf.set_font("Arial", size=12)
-                    pdf.multi_cell(0, 10, "Summary and Key Points:\n")
-                    pdf.multi_cell(0, 10, result)
-                    pdf_file = "summary_output.pdf"
-                    pdf.output(pdf_file)
-                    st.download_button(
-                        "📥 Download Summary PDF",
-                        data=open(pdf_file, "rb"),
-                        file_name=pdf_file,
-                        mime="application/pdf"
-                    )
+                # Trigger the PDF download
+                download_pdf(result)
 
 st.markdown("</div>", unsafe_allow_html=True)
