@@ -71,8 +71,8 @@ def app():
         }
 
         .download-btn {
-            background-color: #32CD32;
-            color: #FFFFFF;
+            background-color: GREEN;
+            color: black;
             padding: 10px 20px;
             border-radius: 10px;
             font-weight: bold;
@@ -87,6 +87,7 @@ def app():
         }
 
         .todo-input {
+        background-color: skyblue;
             padding: 10px;
             border-radius: 5px;
             margin: 10px 0;
