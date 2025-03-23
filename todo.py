@@ -45,6 +45,7 @@ def app():
 
         h1, h2, h3 {
             color: #FF4500;  /* Vibrant orange for main headings */
+            text-align: center;  /* Center align headings */
         }
 
         .todo-list {
@@ -73,7 +74,7 @@ def app():
         }
 
         .download-btn {
-            background-color: #32CD32;  /* Vibrant green for the download button */
+            background-color: #FF6347;  /* Vibrant red for the download button */
             color: white;
             padding: 12px 25px;
             border-radius: 10px;
@@ -87,7 +88,7 @@ def app():
         }
 
         .download-btn:hover {
-            background-color: #228B22;  /* Darker green when hovered */
+            background-color: #FF4500;  /* Darker red when hovered */
         }
 
         .todo-input {
@@ -98,6 +99,7 @@ def app():
             font-size: 16px;
             width: 80%;
             margin: 10px 0;
+            text-align: center;  /* Center the input text */
         }
 
         .todo-input:focus {
@@ -110,6 +112,7 @@ def app():
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             color: #FF4500;
+            text-align: center;  /* Center the header text */
         }
 
         .subheader-text {
@@ -117,6 +120,7 @@ def app():
             color: #FF6347;  /* Light red for subheader */
             margin-top: -10px;
             font-weight: 300;
+            text-align: center;  /* Center the subheader text */
         }
     </style>
     """, unsafe_allow_html=True)
@@ -162,7 +166,7 @@ def app():
         # Button to download the list as a PDF
         if st.session_state.todo_list:
             pdf_data = generate_pdf(st.session_state.todo_list)
-            st.download_button("Download PDF", pdf_data, file_name="todo_list.pdf", mime="application/pdf")
+            st.download_button("Download PDF", pdf_data, file_name="todo_list.pdf", mime="application/pdf", use_container_width=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
 
