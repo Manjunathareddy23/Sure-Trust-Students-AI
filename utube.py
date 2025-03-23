@@ -9,7 +9,7 @@ from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, Vide
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Prompt for Google Gemini
+# Prompts for Google Gemini
 summary_prompt = """You are a YouTube video summarizer. You will take the transcript of the video 
 and summarize the entire video, providing the important information in points within 
 250 words. The summary will be in a professional format. Please provide the summary of the text given here: """
@@ -43,12 +43,12 @@ def extract_transcript_details(youtube_video_url):
 def generate_gemini_content(prompt_text, prompt):
     """Generates content using the Google Gemini API."""
     try:
-        response = genai.generate_text(
+        response = genai.generate(
             model="text-bison-001",
             prompt=prompt + prompt_text,
             max_output_tokens=300
         )
-        return response.result
+        return response.generations[0].text  # Adjusted to access the generated text correctly
     except Exception as e:
         st.error(f"❌ Failed to fetch data from Gemini API: {e}")
         return None
@@ -63,7 +63,7 @@ if youtube_link:
 if st.button("Get Summary"):
     transcript_text = extract_transcript_details(youtube_link)
 
-    # If transcript is unavailable, generate it using Gemini
+    # If transcript is unavailable, attempt Gemini-based generation
     if not transcript_text:
         transcript_text = generate_gemini_content(youtube_link, transcript_prompt)
 
