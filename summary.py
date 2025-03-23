@@ -13,28 +13,26 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 st.set_page_config(page_title='Manju PDF Summarizer', page_icon='📄', layout='centered')
 
-# Replace this URL with the direct link to your GitHub background image
+# GitHub link to your background image
 background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/summary.jpg"
 
-# CSS styling with background image
-st.markdown(f'''
+# Updated CSS styling with better background implementation
+st.markdown(f"""
     <style>
-        body {{
-            font-family: Arial, sans-serif;
+        .stApp {{
             background-image: url("{background_image_url}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            backdrop-filter: blur(3px);  /* Optional blur for readability */
+            color: #000;
         }}
         .container {{
-            background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent background */
+            background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent container */
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
             width: 60%;
-            margin: auto;
-            margin-top: 50px;
+            margin: 50px auto;
             text-align: center;
         }}
         h1 {{
@@ -58,7 +56,7 @@ st.markdown(f'''
             margin-top: 10px;
         }}
     </style>
-''', unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("<div class='container'><h1>📄 Manju PDF Summarizer</h1>", unsafe_allow_html=True)
 
