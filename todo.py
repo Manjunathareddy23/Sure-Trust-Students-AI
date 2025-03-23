@@ -25,16 +25,16 @@ def app():
     st.markdown("""
     <style>
         .stApp {
-            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fupsu.net%2Fpost%2FVG96P%2Fhow-to-make-a-to-do-list-and-stick-to-it&psig=AOvVaw3WhFIpI4QzW4UeB5TWSwT7&ust=1742789611554000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPCIxMyrn4wDFQAAAAAdAAAAABAE');  /* Replace with your actual background image URL */
+            background-image: url('https://www.gstatic.com/webp/gallery/1.jpg');  /* Replace with your actual background image URL from Google Images */
             background-size: cover;
             background-position: center;
             height: 100vh;
-            color: #f5f5f5;  /* Light text for readability */
+            color: #FFFFFF;  /* Light text for readability */
             font-family: 'Arial', sans-serif;
         }
 
         .todo-container {
-            background-color: rgba(0, 0, 0, 0.7);  /* Dark background for container */
+            background-color: rgba(0, 0, 0, 0.6);  /* Semi-transparent dark background for container */
             padding: 30px;
             border-radius: 15px;
             width: 80%;
@@ -44,7 +44,7 @@ def app():
         }
 
         h1, h2, h3 {
-            color: #FF6347;  /* Bright red for headings */
+            color: #FF4500;  /* Vibrant orange for main headings */
         }
 
         .todo-list {
@@ -55,7 +55,7 @@ def app():
 
         .todo-list li {
             margin: 15px 0;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 223, 0, 0.7);  /* Yellow background for tasks */
             padding: 15px;
             border-radius: 10px;
             font-size: 18px;
@@ -64,7 +64,7 @@ def app():
         }
 
         .todo-list li:hover {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 165, 0, 0.8);  /* Slightly orange when hovering */
         }
 
         .completed {
@@ -73,7 +73,7 @@ def app():
         }
 
         .download-btn {
-            background-color: #4CAF50;
+            background-color: #32CD32;  /* Vibrant green for the download button */
             color: white;
             padding: 12px 25px;
             border-radius: 10px;
@@ -87,7 +87,7 @@ def app():
         }
 
         .download-btn:hover {
-            background-color: #45a049;
+            background-color: #228B22;  /* Darker green when hovered */
         }
 
         .todo-input {
@@ -102,23 +102,22 @@ def app():
 
         .todo-input:focus {
             outline: none;
-            box-shadow: 0 0 5px rgba(255, 99, 71, 0.7);
+            box-shadow: 0 0 5px rgba(255, 99, 71, 0.7);  /* Add a focus effect */
         }
 
         .header-text {
             font-size: 32px;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            color: #FF6347;
+            color: #FF4500;
         }
 
         .subheader-text {
             font-size: 18px;
-            color: #f5f5f5;
+            color: #FF6347;  /* Light red for subheader */
             margin-top: -10px;
             font-weight: 300;
         }
-
     </style>
     """, unsafe_allow_html=True)
 
