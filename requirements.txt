@@ -12,3 +12,5 @@ numpy
 opencv-python-headless
 streamlit-webrtc
 pymupdf 
+youtube_transcript_api
+pathlib
