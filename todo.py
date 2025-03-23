@@ -46,6 +46,7 @@ def app():
         h1, h2, h3 {
             color: #FF4500;  /* Vibrant orange for main headings */
             text-align: center;  /* Center align headings */
+            font-size: 40px;  /* Increased font size for headings */
         }
 
         .todo-list {
@@ -75,7 +76,7 @@ def app():
 
         .download-btn {
             background-color: #FF6347;  /* Vibrant red for the download button */
-            color: white;
+            color: #000080;  /* Navy blue text color */
             padding: 12px 25px;
             border-radius: 10px;
             text-decoration: none;
@@ -84,11 +85,12 @@ def app():
             font-weight: bold;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .download-btn:hover {
             background-color: #FF4500;  /* Darker red when hovered */
+            color: #87CEEB;  /* Skyblue text color when hovered */
         }
 
         .todo-input {
@@ -108,7 +110,7 @@ def app():
         }
 
         .header-text {
-            font-size: 32px;
+            font-size: 48px;  /* Increased font size for header */
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             color: #FF4500;
@@ -116,7 +118,7 @@ def app():
         }
 
         .subheader-text {
-            font-size: 18px;
+            font-size: 22px;  /* Increased font size for subheader */
             color: #FF6347;  /* Light red for subheader */
             margin-top: -10px;
             font-weight: 300;
