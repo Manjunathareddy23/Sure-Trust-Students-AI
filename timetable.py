@@ -14,12 +14,25 @@ st.markdown(f'''
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
+            color: #FF0000;
         }}
         h1 {{
             text-align: center;
             color: #4CAF50;
             text-shadow: 2px 2px 4px #000000;
             margin-bottom: 30px;
+            font-size: 3rem;
+            transition: transform 0.3s;
+        }}
+        h1:hover {{
+            transform: scale(1.05);
+        }}
+        .task-input {{
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
         }}
         table {{
             width: 100%;
@@ -32,29 +45,14 @@ st.markdown(f'''
             padding: 12px;
             text-align: center;
             font-size: 16px;
-            color: #333;
             background-color: #fff;
-            text-shadow: 1px 1px 2px #aaa;
-        }}
-        th {{
-            background-color: #32CD32;
-            color: white;
-            font-size: 18px;
-            text-shadow: 1px 1px 2px #000;
-        }}
-        .download-btn {{
-            background-color: #FF1493;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
+            color: #FF0000;
             font-weight: bold;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
         }}
-        .download-btn:hover {{
-            background-color: #D6006E;
+        th:hover, td:hover {{
+            transform: scale(1.05);
+            color: #000;
         }}
     </style>
 ''', unsafe_allow_html=True)
@@ -66,10 +64,10 @@ num_tasks = st.number_input("Enter the number of tasks:", min_value=1, max_value
 
 for i in range(num_tasks):
     st.subheader(f"Task {i + 1}")
-    task_name = st.text_input(f"Enter task name for Task {i + 1}:")
-    start_time = st.text_input(f"Start time for {task_name} (e.g., 9:00 AM):")
-    end_time = st.text_input(f"End time for {task_name} (e.g., 10:00 AM):")
-    duration = st.text_input(f"Duration for {task_name} (in hours):")
+    task_name = st.text_input(f"Enter task name for Task {i + 1}:", key=f"task_name_{i}")
+    start_time = st.text_input(f"Start time for {task_name} (e.g., 9:00 AM):", key=f"start_time_{i}")
+    end_time = st.text_input(f"End time for {task_name} (e.g., 10:00 AM):", key=f"end_time_{i}")
+    duration = st.text_input(f"Duration for {task_name} (in hours):", key=f"duration_{i}")
     if task_name and start_time and end_time and duration:
         task_data.append([task_name, start_time, end_time, duration])
 
