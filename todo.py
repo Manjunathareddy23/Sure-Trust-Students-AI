@@ -95,10 +95,12 @@ def app():
         st.markdown('<ul class="todo-list">', unsafe_allow_html=True)
         
         for idx, task in enumerate(st.session_state.todo_list):
-            # Mark completed tasks
+            # Display task with the completion checkbox
             checkbox_label = task["task"]
             if task["completed"]:
                 checkbox_label = f'<span class="completed">{task["task"]}</span>'
+            
+            # Add checkbox for completion status
             task_completed = st.checkbox(checkbox_label, value=task["completed"], key=f"task_{idx}")
 
             # Update task completion status
