@@ -13,15 +13,22 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 st.set_page_config(page_title='Gemini PDF Summarizer', page_icon='📄', layout='centered')
 
-# Tailwind-inspired CSS styling for better UI
-st.markdown('''
+# Replace this URL with the direct link to your GitHub background image
+background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/summary.jpg"
+
+# CSS styling with background image
+st.markdown(f'''
     <style>
-        body {
+        body {{
             font-family: Arial, sans-serif;
-            background-color: #eef2f7;
-        }
-        .container {
-            background-color: #ffffff;
+            background-image: url("{background_image_url}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(3px);  /* Optional blur for readability */
+        }}
+        .container {{
+            background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent background */
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
@@ -29,13 +36,13 @@ st.markdown('''
             margin: auto;
             margin-top: 50px;
             text-align: center;
-        }
-        h1 {
+        }}
+        h1 {{
             color: #1e40af;
             font-size: 2.5rem;
             margin-bottom: 20px;
-        }
-        .result-box {
+        }}
+        .result-box {{
             background-color: #f1f5f9;
             padding: 15px;
             margin-top: 20px;
@@ -44,16 +51,16 @@ st.markdown('''
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
             max-height: 300px;
-        }
-        .error-msg {
+        }}
+        .error-msg {{
             color: red;
             font-weight: bold;
             margin-top: 10px;
-        }
+        }}
     </style>
 ''', unsafe_allow_html=True)
 
-st.markdown("<div class='container'><h1>📄 Gemini PDF Summarizer</h1>", unsafe_allow_html=True)
+st.markdown("<div class='container'><h1>📄 Manju PDF Summarizer</h1>", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Upload a PDF file:", type=['pdf'])
 
@@ -86,7 +93,7 @@ def download_pdf(content):
     pdf.set_font("Arial", size=12)
     pdf.multi_cell(0, 10, "Summary and Key Points:\n")
     pdf.multi_cell(0, 10, content)
-    pdf_file = "summary_output.pdf"
+    pdf_file = "summary_report.pdf"
     pdf.output(pdf_file)
 
     with open(pdf_file, "rb") as file:
