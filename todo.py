@@ -25,7 +25,7 @@ def app():
     st.markdown("""
     <style>
         .stApp {
-            background-image: url('https://www.gstatic.com/webp/gallery/1.jpg');  /* Replace with your actual background image URL from Google Images */
+            background-image: url('https://raw.githubusercontent.com/username/repo/main/todo.png');  /* Replace with your actual GitHub image URL */
             background-size: cover;
             background-position: center;
             height: 100vh;
