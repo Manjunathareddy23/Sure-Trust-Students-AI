@@ -2,29 +2,32 @@ import streamlit as st
 from fpdf import FPDF
 import pandas as pd
 
-# Set Streamlit page configuration
 st.set_page_config(page_title="Student Timetable Planner", page_icon="📅", layout="wide")
 
-# Custom CSS for styling
-st.markdown('''
+# Update the GitHub URL with the link to your background image
+background_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/time.jpg"
+
+st.markdown(f'''
     <style>
-        body {
-            background-color: #f0f4f8;
+        [data-testid="stAppViewContainer"] {{
+            background-image: url('{background_url}');
+            background-size: cover;
+            background-position: center;
             font-family: Arial, sans-serif;
-        }
-        h1 {
+        }}
+        h1 {{
             text-align: center;
             color: #4CAF50;
             text-shadow: 2px 2px 4px #000000;
             margin-bottom: 30px;
-        }
-        table {
+        }}
+        table {{
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        th, td {
+        }}
+        th, td {{
             border: 2px solid #32CD32;
             padding: 12px;
             text-align: center;
@@ -32,14 +35,14 @@ st.markdown('''
             color: #333;
             background-color: #fff;
             text-shadow: 1px 1px 2px #aaa;
-        }
-        th {
+        }}
+        th {{
             background-color: #32CD32;
             color: white;
             font-size: 18px;
             text-shadow: 1px 1px 2px #000;
-        }
-        .download-btn {
+        }}
+        .download-btn {{
             background-color: #FF1493;
             color: white;
             padding: 10px 20px;
@@ -49,16 +52,15 @@ st.markdown('''
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
-        }
-        .download-btn:hover {
+        }}
+        .download-btn:hover {{
             background-color: #D6006E;
-        }
+        }}
     </style>
 ''', unsafe_allow_html=True)
 
 st.title("📅 Student Timetable Planner")
 
-# Input collection
 task_data = []
 num_tasks = st.number_input("Enter the number of tasks:", min_value=1, max_value=10, step=1)
 
@@ -68,14 +70,13 @@ for i in range(num_tasks):
     start_time = st.text_input(f"Start time for {task_name} (e.g., 9:00 AM):")
     end_time = st.text_input(f"End time for {task_name} (e.g., 10:00 AM):")
     duration = st.text_input(f"Duration for {task_name} (in hours):")
-    task_data.append([task_name, start_time, end_time, duration])
+    if task_name and start_time and end_time and duration:
+        task_data.append([task_name, start_time, end_time, duration])
 
-# Display and download timetable
-if st.button("Generate Timetable"):
+if st.button("Generate Timetable") and task_data:
     df = pd.DataFrame(task_data, columns=["Task", "Start Time", "End Time", "Duration (hrs)"])
     st.table(df)
 
-    # PDF Generation
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
