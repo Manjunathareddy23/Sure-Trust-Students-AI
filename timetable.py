@@ -112,15 +112,32 @@ if st.button("Generate Timetable") and task_data:
     df = pd.DataFrame(task_data, columns=["Task", "Start Time", "End Time", "Duration (hrs)"])
     st.table(df)
 
-    # Generate PDF
+    # Generate PDF with formatted table
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt="Student Timetable", ln=True, align='C')
+    pdf.set_font("Arial", "B", 14)
+    pdf.cell(200, 10, "Student Timetable", ln=True, align='C')
     pdf.ln(10)
 
+    # Header
+    pdf.set_font("Arial", "B", 12)
+    pdf.set_fill_color(50, 205, 50)  # Green
+    pdf.set_text_color(255, 255, 255)  # White
+    pdf.cell(50, 10, "Task", border=1, fill=True, align='C')
+    pdf.cell(40, 10, "Start Time", border=1, fill=True, align='C')
+    pdf.cell(40, 10, "End Time", border=1, fill=True, align='C')
+    pdf.cell(40, 10, "Duration (hrs)", border=1, fill=True, align='C')
+    pdf.ln()
+
+    # Data Rows
+    pdf.set_font("Arial", size=12)
+    pdf.set_text_color(0, 0, 0)  # Black
     for task in task_data:
-        pdf.cell(200, 10, txt=f"Task: {task[0]} | Start: {task[1]} | End: {task[2]} | Duration: {task[3]} hrs", ln=True)
+        pdf.cell(50, 10, task[0], border=1, align='C')
+        pdf.cell(40, 10, task[1], border=1, align='C')
+        pdf.cell(40, 10, task[2], border=1, align='C')
+        pdf.cell(40, 10, task[3], border=1, align='C')
+        pdf.ln()
 
     pdf_data = pdf.output(dest="S").encode("latin1")
     st.download_button("Download Timetable as PDF", pdf_data, "timetable.pdf", mime="application/pdf", key="download_pdf")
