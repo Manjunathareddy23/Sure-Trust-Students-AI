@@ -76,7 +76,7 @@ def app():
 
         .download-btn {
             background-color: #FF6347;  /* Vibrant red for the download button */
-            color: #000080;  /* Navy blue text color */
+            color: #87CEEB;  /* Sky blue text color */
             padding: 12px 25px;
             border-radius: 10px;
             text-decoration: none;
@@ -90,7 +90,7 @@ def app():
 
         .download-btn:hover {
             background-color: #FF4500;  /* Darker red when hovered */
-            color: #87CEEB;  /* Skyblue text color when hovered */
+            color: #FFFFFF;  /* White text color when hovered */
         }
 
         .todo-input {
@@ -134,7 +134,7 @@ def app():
 
     # Input for tasks
     with st.form("todo_form", clear_on_submit=True):
-        todo_item = st.text_input("Add a task", key="task_input", placeholder="Enter a new task", label_visibility="collapsed")
+        todo_item = st.text_input("Add a task", key="task_input", placeholder="Enter a new task", label_visibility="collapsed", max_chars=100)
         add_task_button = st.form_submit_button("Add Task")
 
     if add_task_button and todo_item:
@@ -165,8 +165,7 @@ def app():
 
         st.markdown('</ul>', unsafe_allow_html=True)
 
-        # Button to download the list as a P
-        
+        # Button to download the list as a PDF
         if st.session_state.todo_list:
             pdf_data = generate_pdf(st.session_state.todo_list)
             st.download_button("Download PDF", pdf_data, file_name="todo_list.pdf", mime="application/pdf", use_container_width=True)
