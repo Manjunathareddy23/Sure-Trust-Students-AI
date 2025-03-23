@@ -77,8 +77,9 @@ st.markdown('''
 
 st.markdown("<div class='container'><h1>📄 Gemini PDF Summarizer</h1>", unsafe_allow_html=True)
 
-# Fetch the Gemini API key from environment variables
+# Fetch the Gemini API key and version from environment variables
 gemini_api_key = os.getenv('GEMINI_API_KEY')
+gemini_version = 'flash'  # Specifying version as "flash"
 
 uploaded_file = st.file_uploader("Upload a PDF file:", type=['pdf'])
 
@@ -92,7 +93,8 @@ def extract_text_from_pdf(pdf_path):
 def call_gemini_api(text):
     headers = {
         'Authorization': f'Bearer {gemini_api_key}',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Gemini-Version': gemini_version  # Using version "flash"
     }
     payload = {
         'text': text,
@@ -102,7 +104,7 @@ def call_gemini_api(text):
     if response.status_code == 200:
         return response.json()
     else:
-        st.error('Failed to fetch data from Gemini API. Please check your API key.')
+        st.error('Failed to fetch data from Gemini API. Please check your API key or version.')
         return None
 
 if uploaded_file is not None:
