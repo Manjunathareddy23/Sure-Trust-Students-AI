@@ -10,9 +10,12 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Prompt for Google Gemini
-prompt = """You are a YouTube video summarizer. You will take the transcript of the video 
+summary_prompt = """You are a YouTube video summarizer. You will take the transcript of the video 
 and summarize the entire video, providing the important information in points within 
 250 words. The summary will be in a professional format. Please provide the summary of the text given here: """
+
+transcript_prompt = """You are a transcript generator. Given the title and description of a YouTube video, 
+generate an accurate transcript of what is spoken in the video. Please generate the transcript for the following: """
 
 st.title("📹 YouTube Video Summarizer")
 youtube_link = st.text_input("Enter YouTube video link:")
@@ -24,28 +27,25 @@ def extract_video_id(youtube_video_url):
     return match.group(1) if match else None
 
 def extract_transcript_details(youtube_video_url):
-    """Fetches the transcript of a YouTube video."""
+    """Attempts to fetch the transcript of a YouTube video."""
     try:
         video_id = extract_video_id(youtube_video_url)
         transcript_data = YouTubeTranscriptApi.get_transcript(video_id)
         transcript_text = " ".join([item["text"] for item in transcript_data])
         return transcript_text
-    except NoTranscriptFound:
-        st.error("❌ No transcript available for this video.")
-    except VideoUnavailable:
-        st.error("❌ The video is unavailable. Please check the link.")
-    except TranscriptsDisabled:
-        st.error("❌ Transcripts are disabled for this video.")
+    except (NoTranscriptFound, VideoUnavailable, TranscriptsDisabled):
+        st.warning("⚠️ Transcript not available. Attempting to generate a transcript using Gemini API...")
+        return None
     except Exception as e:
-        st.error(f"❌ An error occurred: {e}")
-    return None
+        st.error(f"❌ An unexpected error occurred: {e}")
+        return None
 
-def generate_gemini_content(transcript_text, prompt):
-    """Generates a summary using the Google Gemini API."""
+def generate_gemini_content(prompt_text, prompt):
+    """Generates content using the Google Gemini API."""
     try:
         response = genai.generate_text(
-            model="text-bison-001",  # Update this with the correct model suitable for summarization
-            prompt=prompt + transcript_text,
+            model="text-bison-001",
+            prompt=prompt + prompt_text,
             max_output_tokens=300
         )
         return response.result
@@ -63,8 +63,12 @@ if youtube_link:
 if st.button("Get Summary"):
     transcript_text = extract_transcript_details(youtube_link)
 
+    # If transcript is unavailable, generate it using Gemini
+    if not transcript_text:
+        transcript_text = generate_gemini_content(youtube_link, transcript_prompt)
+
     if transcript_text:
-        summary = generate_gemini_content(transcript_text, prompt)
+        summary = generate_gemini_content(transcript_text, summary_prompt)
         if summary:
             st.markdown("## 📄 Detailed Summary:")
             st.write(summary)
