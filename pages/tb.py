@@ -2,86 +2,95 @@ import streamlit as st
 from fpdf import FPDF
 import pandas as pd
 
+# Set page config
 st.set_page_config(page_title="Student Timetable Planner", page_icon="📅", layout="wide")
 
-# Background image URL
-background_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/time.jpg"
+# Local background image
+background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/assests/time.jpg"
 
-st.markdown(f'''
+# Apply background image using custom CSS
+st.markdown(f"""
     <style>
-        [data-testid="stAppViewContainer"] {{
-            background-image: url('{background_url}');
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
-            color: #FF0000;
-        }}
-        h1 {{
-            text-align: center;
-            color: #4CAF50;
-            text-shadow: 2px 2px 4px #000000;
-            margin-bottom: 30px;
-            font-size: 3rem;
-            transition: transform 0.3s;
-        }}
-        h1:hover {{
-            transform: scale(1.05);
-        }}
-        label, .skyblue-text {{
-            color: skyblue;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            text-shadow: 1px 1px 2px #000;
-        }}
-        .task-input {{
-            margin-bottom: 20px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
-            padding: 15px;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-        }}
-        table {{
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            background-color: rgba(255, 255, 255, 0.9);
-        }}
-        th, td {{
-            border: 2px solid #32CD32;
-            padding: 12px;
-            text-align: center;
-            font-size: 16px;
-            background-color: #fff;
-            color: #FF0000;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }}
-        th:hover, td:hover {{
-            transform: scale(1.05);
-            color: #000;
-        }}
-        .download-btn {{
-            background-color: #FF1493;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
-        }}
-        .download-btn:hover {{
-            background-color: #D6006E;
-            transform: translateY(-3px);
-        }}
+    [data-testid="stAppViewContainer"] {{
+        background-image: url("{background_image_url}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        font-family: Arial, sans-serif;
+        color: #FF0000;
+    }}
+    [data-testid="stSidebar"] {{
+        background-color: rgba(255, 255, 255, 0.8);
+    }}
+    h1 {{
+        text-align: center;
+        color: #4CAF50;
+        text-shadow: 2px 2px 4px #000000;
+        margin-bottom: 30px;
+        font-size: 3rem;
+        transition: transform 0.3s;
+    }}
+    h1:hover {{
+        transform: scale(1.05);
+    }}
+    label, .skyblue-text {{
+        color: skyblue;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+        text-shadow: 1px 1px 2px #000;
+    }}
+    .task-input {{
+        margin-bottom: 20px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 15px;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+    }}
+    table {{
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        background-color: rgba(255, 255, 255, 0.9);
+    }}
+    th, td {{
+        border: 2px solid #32CD32;
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+        background-color: #fff;
+        color: #FF0000;
+        font-weight: bold;
+        transition: transform 0.3s;
+    }}
+    th:hover, td:hover {{
+        transform: scale(1.05);
+        color: #000;
+    }}
+    .download-btn {{
+        background-color: #FF1493;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+    }}
+    .download-btn:hover {{
+        background-color: #D6006E;
+        transform: translateY(-3px);
+    }}
     </style>
-''', unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
+# App title
 st.title("📅 Student Timetable Planner")
 
+# Task data
 task_data = []
 st.markdown('<p class="skyblue-text">Enter the number of tasks:</p>', unsafe_allow_html=True)
 num_tasks = st.number_input("", min_value=1, max_value=10, step=1)
@@ -108,6 +117,7 @@ for i in range(num_tasks):
     if task_name and start_time and end_time and duration:
         task_data.append([task_name, start_time, end_time, duration])
 
+# Generate Timetable & PDF
 if st.button("Generate Timetable") and task_data:
     df = pd.DataFrame(task_data, columns=["Task", "Start Time", "End Time", "Duration (hrs)"])
     st.table(df)
@@ -139,5 +149,6 @@ if st.button("Generate Timetable") and task_data:
         pdf.cell(40, 10, task[3], border=1, align='C')
         pdf.ln()
 
+    # PDF Output
     pdf_data = pdf.output(dest="S").encode("latin1")
     st.download_button("Download Timetable as PDF", pdf_data, "timetable.pdf", mime="application/pdf", key="download_pdf")
