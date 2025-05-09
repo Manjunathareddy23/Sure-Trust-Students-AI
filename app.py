@@ -2,11 +2,70 @@ import streamlit as st
 
 st.set_page_config(page_title="Manju's Productivity Suite", page_icon="🚀")
 
-st.title("🚀 Welcome to Manju's Productivity Suite")
+# Inject custom CSS
 st.markdown("""
-Choose a tool from the sidebar:
-- 📝 To-Do List Generator
-- 📅 Student Timetable Planner
-- 🌍 Language Translator
-- 📄 PDF Summarizer
-""")
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    html, body, [class*="css"]  {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+        color: white;
+    }
+
+    .title-box {
+        padding: 20px;
+        border-radius: 20px;
+        background: linear-gradient(145deg, #1e3c72, #2a5298);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        text-align: center;
+        margin-bottom: 30px;
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .title-box:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 30px rgba(0,0,0,0.6);
+    }
+
+    .markdown-text ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .markdown-text li {
+        background: #ffffff10;
+        border-radius: 12px;
+        padding: 12px 20px;
+        margin: 10px 0;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .markdown-text li:hover {
+        background: #ffffff20;
+        transform: scale(1.02);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Animated Title Box
+st.markdown("""
+<div class="title-box">
+    <h1>🚀 Welcome to Manju's Productivity Suite</h1>
+</div>
+""", unsafe_allow_html=True)
+
+# Styled Features List
+st.markdown("""
+<div class="markdown-text">
+    <ul>
+        <li>📝 To-Do List Generator</li>
+        <li>📅 Student Timetable Planner</li>
+        <li>🌍 Language Translator</li>
+        <li>📄 PDF Summarizer</li>
+    </ul>
+</div>
+""", unsafe_allow_html=True)
