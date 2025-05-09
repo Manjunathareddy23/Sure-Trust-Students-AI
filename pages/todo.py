@@ -1,13 +1,15 @@
 import streamlit as st
 from fpdf import FPDF
 
+# Local background image
+background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/assests/todo.png"
+
 # Function to generate PDF
 def generate_pdf(todo_list):
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
     pdf.set_font("Arial", size=12)
-
     pdf.cell(200, 10, txt="To-Do List", ln=True, align="C")
     pdf.ln(10)
 
@@ -21,36 +23,35 @@ def generate_pdf(todo_list):
 def app():
     st.set_page_config(page_title="To-Do List Generator", page_icon="📝", layout="wide")
 
-    # Styling for vibrant headings, shadow effects, and button fixes
-    st.markdown('''
+    # Background and styling
+    st.markdown(f'''
     <style>
-        .stApp {
-            background-image: url('https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/todo.png');
+        [data-testid="stAppViewContainer"] {{
+            background-image: url("{background_image_url}");
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: #FFFFFF;
             font-family: Arial, sans-serif;
-        }
-
-        .header-text {
+        }}
+        .header-text {{
             font-size: 48px;
             font-weight: bold;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
             color: #FF6347;
             text-align: center;
             margin-bottom: 10px;
-        }
-
-        .subheader-text {
+        }}
+        .subheader-text {{
             font-size: 22px;
             font-weight: 300;
             color: #87CEEB;
             text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
             text-align: center;
             margin-bottom: 20px;
-        }
-
-        .todo-container {
+        }}
+        .todo-container {{
             background-color: rgba(0, 0, 0, 0.6);
             padding: 30px;
             border-radius: 15px;
@@ -58,9 +59,8 @@ def app():
             margin: 20px auto;
             max-width: 600px;
             color: #FFFFFF;
-        }
-
-        .todo-list li {
+        }}
+        .todo-list li {{
             margin: 10px 0;
             background-color: rgba(34, 139, 34, 0.8);
             padding: 10px;
@@ -68,9 +68,8 @@ def app():
             color: #FFF;
             font-size: 18px;
             list-style-type: none;
-        }
-
-        .download-btn {
+        }}
+        .download-btn {{
             background-color: GREEN;
             color: black;
             padding: 10px 20px;
@@ -80,20 +79,18 @@ def app():
             margin-top: 15px;
             cursor: pointer;
             transition: background-color 0.3s;
-        }
-
-        .download-btn:hover {
+        }}
+        .download-btn:hover {{
             background-color: #228B22;
-        }
-
-        .todo-input {
-        background-color: skyblue;
+        }}
+        .todo-input {{
+            background-color: skyblue;
             padding: 10px;
             border-radius: 5px;
             margin: 10px 0;
             width: 80%;
             font-size: 16px;
-        }
+        }}
     </style>
     ''', unsafe_allow_html=True)
 
