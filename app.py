@@ -1,6 +1,7 @@
 import streamlit as st
 
 st.set_page_config(page_title="Manju's Productivity Suite", page_icon="🚀")
+background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/entry.jpg"
 
 # Inject custom CSS
 st.markdown("""
