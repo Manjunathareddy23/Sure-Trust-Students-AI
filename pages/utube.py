@@ -62,7 +62,7 @@ load_dotenv(override=True)
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Validate API keys
-if not os.getenv("GOOGLE_API_KEY"):
+if not os.getenv("GEMINI_API_KEY"):
     st.error("Google API key is missing. Check your environment configuration.")
     st.stop()
 
