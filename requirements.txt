@@ -14,3 +14,15 @@ streamlit-webrtc
 pymupdf 
 youtube-transcript-api
 pathlib
+
+
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-generativeai
+python-dotenv
+youtube-transcript-api
+docx
+beautifulsoup4
+requests
