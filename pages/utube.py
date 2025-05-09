@@ -700,10 +700,10 @@ def setup_api_section():
     
     try:
         # Try to get API key from environment first
-        api_key = os.getenv("GOOGLE_API_KEY")
+        api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
             # If not in environment, try Streamlit secrets
-            api_key = st.secrets["GOOGLE_API_KEY"]
+            api_key = st.secrets["GEMINI_API_KEY"]
         return api_key
     except Exception:
         st.error("❌ API key not found")
