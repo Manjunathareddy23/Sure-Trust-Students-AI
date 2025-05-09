@@ -3,29 +3,28 @@ from fpdf import FPDF
 import fitz  # PyMuPDF for PDF reading
 import os
 from dotenv import load_dotenv
-import google.generativeai as genai  # Import the Google Gemini library
+import google.generativeai as genai  # Gemini API
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Configure the Google Gemini API key
+# Configure the Gemini API key
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# Set background image
+background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/assests/summary.jpg"
+# Or use local file: background_image_url = "assets/lang.jpg"
 
 st.set_page_config(page_title='Manju PDF Summarizer', page_icon='📄', layout='centered')
 
-# GitHub link to your background image
-background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/summary.jpg"
-
-# Updated CSS styling with enhanced text stylings
+# Custom CSS for background and UI
 st.markdown(f"""
     <style>
-        .stApp {{
+        [data-testid="stAppViewContainer"] {{
             background-image: url("{background_image_url}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            color: #000;
-            font-family: Arial, sans-serif;
         }}
         .container {{
             background-color: rgba(255, 255, 255, 0.85);
@@ -42,20 +41,18 @@ st.markdown(f"""
             to {{ opacity: 1; }}
         }}
         h1 {{
-            color: #ffd700;  /* Golden color for the title */
+            color: #ffd700;
             font-size: 3rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             font-weight: bold;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-decoration: underline;
         }}
         label {{
-            color: #1e40af;  /* Stylish blue for labels */
+            color: #1e40af;
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 10px;
-            font-family: 'Verdana', sans-serif;
         }}
         .result-box {{
             background-color: #f1f5f9;
@@ -68,7 +65,6 @@ st.markdown(f"""
             max-height: 300px;
             color: #0f172a;
             font-weight: 500;
-            font-family: 'Calibri', sans-serif;
         }}
         .error-msg {{
             color: red;
@@ -99,14 +95,16 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
+# Title inside styled container
 st.markdown("<div class='container'><h1>📄 Manju PDF Summarizer</h1>", unsafe_allow_html=True)
 
+# PDF Upload
 uploaded_file = st.file_uploader("🔹 Upload a PDF file:", type=['pdf'])
 
+# Function to extract text
 def extract_text_from_pdf(pdf_path):
-    """Extracts text from a PDF file using PyMuPDF."""
-    text = ''
     try:
+        text = ''
         with fitz.open(pdf_path) as doc:
             for page in doc:
                 text += page.get_text()
@@ -115,18 +113,18 @@ def extract_text_from_pdf(pdf_path):
         st.error("❌ Error reading the PDF file. Please try again.")
         return None
 
+# Gemini summarization function
 def get_gemini_response(input_text, pdf_content, prompt):
-    """Fetches a response from the Google Gemini model."""
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content([input_text, pdf_content, prompt])
         return response.text
     except Exception as e:
-        st.error("❌ Failed to fetch data from Gemini API. Please check your API key or connection.")
+        st.error("❌ Failed to fetch data from Gemini API. Check your API key or connection.")
         return None
 
+# PDF generation for summary
 def download_pdf(content):
-    """Generates and allows download of the summary PDF."""
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -143,12 +141,13 @@ def download_pdf(content):
             mime="application/pdf"
         )
 
+# Processing PDF
 if uploaded_file is not None:
     with st.spinner("🔄 Extracting text from the PDF..."):
         with open('uploaded_file.pdf', 'wb') as f:
             f.write(uploaded_file.read())
         pdf_text = extract_text_from_pdf('uploaded_file.pdf')
-        os.remove('uploaded_file.pdf')  # Clean up the file after extraction
+        os.remove('uploaded_file.pdf')  # Clean up
 
     if pdf_text:
         st.markdown(f"<div class='result-box'><strong class='highlight'>📑 Extracted Text Preview:</strong><br>{pdf_text[:500]}...</div>", unsafe_allow_html=True)
