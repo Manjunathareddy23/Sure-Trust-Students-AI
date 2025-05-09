@@ -1,9 +1,12 @@
 import streamlit as st
 
+# Set page configuration
 st.set_page_config(page_title="Manju's Productivity Suite", page_icon="🚀")
+
+# Direct background image URL
 background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/entry.jpg"
 
-# Inject custom CSS with overlay
+# Inject custom CSS and background
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
@@ -14,6 +17,7 @@ st.markdown(f"""
         height: 100%;
         font-family: 'Poppins', sans-serif;
         color: white;
+        overflow-x: hidden;
     }}
 
     .background {{
@@ -25,6 +29,7 @@ st.markdown(f"""
         background-image: url('{background_image_url}');
         background-size: cover;
         background-position: center;
+        background-repeat: no-repeat;
         filter: brightness(0.4) blur(4px);
         z-index: -1;
     }}
@@ -69,7 +74,7 @@ st.markdown(f"""
     <div class="background"></div>
 """, unsafe_allow_html=True)
 
-# Title Box
+# Title content
 st.markdown("""
 <div class="title-box">
     <h1>🚀 Welcome to Manju's Productivity Suite</h1>
