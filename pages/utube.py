@@ -12,7 +12,7 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 # Prompts
 summary_prompt = """You are a YouTube video summarizer. You will take the transcript of the video 
 and summarize the entire video, providing the important information in points within 
-250 words. The summary will be in a professional format. Please provide the summary of the text given here: """
+300 words. The summary will be in a professional format. Please provide the summary of the text given here: """
 
 transcript_prompt = """You are a transcript generator. Given the title and description of a YouTube video, 
 generate an accurate transcript of what is spoken in the video. Please generate the transcript for the following: """
