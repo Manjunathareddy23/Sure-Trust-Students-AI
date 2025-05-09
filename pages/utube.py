@@ -59,7 +59,7 @@ if "fast_summary_generated" not in st.session_state:
     
 # Load environment variables and configure Gemini
 load_dotenv(override=True)
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Validate API keys
 if not os.getenv("GOOGLE_API_KEY"):
