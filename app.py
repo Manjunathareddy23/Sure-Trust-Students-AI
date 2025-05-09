@@ -3,25 +3,36 @@ import streamlit as st
 st.set_page_config(page_title="Manju's Productivity Suite", page_icon="🚀")
 background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/entry.jpg"
 
-# Inject custom CSS
+# Inject custom CSS with overlay
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
-    html, body, [class*="css"] {{
+    html, body {{
+        margin: 0;
+        padding: 0;
+        height: 100%;
         font-family: 'Poppins', sans-serif;
+        color: white;
+    }}
+
+    .background {{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
         background-image: url('{background_image_url}');
         background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
         background-position: center;
-        color: white;
+        filter: brightness(0.4) blur(4px);
+        z-index: -1;
     }}
 
     .title-box {{
         padding: 20px;
         border-radius: 20px;
-        background: linear-gradient(145deg, #1e3c72cc, #2a5298cc);  /* semi-transparent overlay */
+        background: linear-gradient(145deg, #1e3c72cc, #2a5298cc);
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         text-align: center;
         margin-bottom: 30px;
@@ -54,9 +65,11 @@ st.markdown(f"""
         box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     }}
     </style>
+
+    <div class="background"></div>
 """, unsafe_allow_html=True)
 
-# Animated Title Box
+# Title Box
 st.markdown("""
 <div class="title-box">
     <h1>🚀 Welcome to Manju's Productivity Suite</h1>
