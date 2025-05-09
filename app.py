@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Manju's Productivity Suite", page_icon="🚀")
+st.set_page_config(page_title="Manju's Students Helper Tool", page_icon="🚀")
 
 # Inject custom CSS
 st.markdown("""
@@ -54,7 +54,8 @@ st.markdown("""
 # Animated Title Box
 st.markdown("""
 <div class="title-box">
-    <h1>🚀 Welcome to Manju's Productivity Suite</h1>
+    <h1>🚀 Welcome to Manju's Students Helper Tool </h1>
+    
 </div>
 """, unsafe_allow_html=True)
 
