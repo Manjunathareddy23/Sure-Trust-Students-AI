@@ -1,7 +1,9 @@
+
 import streamlit as st
+import streamlit.components.v1 as components
 
 # Set page configuration
-st.set_page_config(page_title="Manju's Productivity Suite", page_icon="🚀")
+st.set_page_config(page_title="Students AI", page_icon="🚀")
 
 # Direct background image URL
 background_image_url = "https://raw.githubusercontent.com/Manjunathareddy23/HACK-WITH-NELLORE-25/main/entry.jpg"
@@ -77,14 +79,18 @@ st.markdown(f"""
 # Title content
 st.markdown("""
 <div class="title-box">
-    <h1>🚀 Welcome to Manju's Productivity Suite</h1>
+    <h1>🚀 Welcome to Manju's Student's AI</h1>
 </div>
 """, unsafe_allow_html=True)
+
+# ✅ Embed n8n chat widget safely
+components.html("""
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-	createChat({
-		webhookUrl: 'https://manjunathareddy.app.n8n.cloud/webhook/f22fe423-dc75-452b-90ca-ea6ca6c2b2b9/chat'
-	});
+    createChat({
+        webhookUrl: 'https://manjunathareddy.app.n8n.cloud/webhook/f22fe423-dc75-452b-90ca-ea6ca6c2b2b9/chat'
+    });
 </script>
+""", height=600)
