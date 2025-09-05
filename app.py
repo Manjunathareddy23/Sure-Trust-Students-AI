@@ -80,3 +80,11 @@ st.markdown("""
     <h1>🚀 Welcome to Manju's Productivity Suite</h1>
 </div>
 """, unsafe_allow_html=True)
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<script type="module">
+	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+	createChat({
+		webhookUrl: 'https://manjunathareddy.app.n8n.cloud/webhook/f22fe423-dc75-452b-90ca-ea6ca6c2b2b9/chat'
+	});
+</script>
